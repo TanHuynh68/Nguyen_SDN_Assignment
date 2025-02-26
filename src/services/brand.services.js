@@ -57,9 +57,9 @@ class brandService {
         }
     }
 
-    deleteOrResotreService = async (req, res, id, is_delete) => {
+    deleteOrResotreService = async (req, res, id) => {
         try {
-            const response = await watchModel.findByIdAndUpdate(id, { $set: { is_delete: is_delete } }, { new: true })
+            const response = await brandModel.deleteOne({_id: id})
             console.log("deleteOrResotreService: ", response)
             if (response)
                 return response;

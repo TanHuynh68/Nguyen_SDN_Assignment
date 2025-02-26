@@ -20,7 +20,7 @@ const API_ROUTE = {
     "CREATE_BRAND": "/",
     "GET_BRAND": "/:id",
     "EDIT_BRAND": "/:id",
-    "DELETE_BRAND": "/delete/:id",
+    "DELETE_BRAND": "/:id",
     "RESTORE_BRAND": "/restore/:id",
 }
 
