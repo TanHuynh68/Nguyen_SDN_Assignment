@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/auth/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addModal">Add Perfume</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addModalLabel">Add Perfume</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/perfume/" method="POST" id="addForm">
+              <div class="mb-3">
+                <label for="inputPerfumeName" class="form-label">Perfume Name</label>
+                <input type="text" class="form-control" id="inputPerfumeName" name="perfumeName" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputImage" class="form-label">Image URL</label>
+                <input type="text" class="form-control" id="inputImage" name="uri" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputPrice" class="form-label">Price</label>
+                <input type="number" class="form-control" id="inputPrice" name="price" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputConcentration" class="form-label">Concentration</label>
+                <input type="text" class="form-control" id="inputConcentration" name="concentration" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="inputDescription" name="description" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="inputIngredients" class="form-label">Ingredients</label>
+                <input type="text" class="form-control" id="inputIngredients" name="ingredients" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputVolume" class="form-label">Volume</label>
+                <input type="number" class="form-control" id="inputVolume" name="volume" required>
+              </div>
+              <div class="mb-3">
+                <label for="inputTargetAudience" class="form-label">Target Audience</label>
+                <input type="text" class="form-control" id="inputTargetAudience" name="targetAudience" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Perfume</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">Edit Perfume</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/perfume/" method="POST" id="editForm">
+              <input type="hidden" id="editPerfumeId" name="perfumeId">
+              <div class="mb-3">
+                <label for="editInputPerfumeName" class="form-label">Perfume Name</label>
+                <input type="text" class="form-control" id="editInputPerfumeName" name="perfumeName" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputImage" class="form-label">Image URL</label>
+                <input type="text" class="form-control" id="editInputImage" name="uri" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputPrice" class="form-label">Price</label>
+                <input type="number" class="form-control" id="editInputPrice" name="price" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputConcentration" class="form-label">Concentration</label>
+                <input type="text" class="form-control" id="editInputConcentration" name="concentration" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="editInputDescription" name="description" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="editInputIngredients" class="form-label">Ingredients</label>
+                <input type="text" class="form-control" id="editInputIngredients" name="ingredients" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputVolume" class="form-label">Volume</label>
+                <input type="number" class="form-control" id="editInputVolume" name="volume" required>
+              </div>
+              <div class="mb-3">
+                <label for="editInputTargetAudience" class="form-label">Target Audience</label>
+                <input type="text" class="form-control" id="editInputTargetAudience" name="targetAudience" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Perfume</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this perfume?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="perfumeTableBody">
+          <!-- Dynamic content will be inserted here -->
+          <!-- Example of how to insert data directly into the table -->
+          <% perfumes.forEach(perfume=> { %>
+            <tr data-perfumeid="<%= perfume._id %>">
+              <td>
+                <%= perfume.perfumeName %>
+              </td>
+              <td><img src="<%= perfume.uri %>" alt="<%= perfume.perfumeName %>" style="width: 50px;"></td>
+              <td>
+                <%= perfume.price %>
+              </td>
+              <td>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"
+                  data-perfumeid="<%= perfume._id %>" data-perfumename="<%= perfume.perfumeName %>"
+                  data-image="<%= perfume.uri %>" data-price="<%= perfume.price %>"
+                  data-concentration="<%= perfume.concentration %>" data-description="<%= perfume.description %>"
+                  data-ingredients="<%= perfume.ingredients %>" data-volume="<%= perfume.volume %>"
+                  data-targetaudience="<%= perfume.targetAudience %>">Edit</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                  data-perfumeid="<%= perfume._id %>">Delete</button>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const editModal = document.getElementById('editModal');
+    const deleteModal = document.getElementById('deleteModal');
+    let perfumeToDeleteId;
+
+    // Function to populate edit modal
+    editModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+
+      const perfumeId = button.getAttribute('data-perfumeid');
+      const perfumeName = button.getAttribute('data-perfumename');
+      const image = button.getAttribute('data-image');
+      const price = button.getAttribute('data-price');
+      const concentration = button.getAttribute('data-concentration');
+      const description = button.getAttribute('data-description');
+      const ingredients = button.getAttribute('data-ingredients');
+      const volume = button.getAttribute('data-volume');
+      const targetAudience = button.getAttribute('data-targetaudience');
+
+      document.getElementById('editPerfumeId').value = perfumeId;
+      document.getElementById('editInputPerfumeName').value = perfumeName;
+      document.getElementById('editInputImage').value = image;
+      document.getElementById('editInputPrice').value = price;
+      document.getElementById('editInputConcentration').value = concentration;
+      document.getElementById('editInputDescription').value = description;
+      document.getElementById('editInputIngredients').value = ingredients;
+      document.getElementById('editInputVolume').value = volume;
+      document.getElementById('editInputTargetAudience').value = targetAudience;
+
+      const form = editModal.querySelector('#editForm');
+      form.action = `/perfume/${perfumeId}`; // Update action for the form
+    });
+
+    // Function to handle delete confirmation
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      perfumeToDeleteId = button.getAttribute('data-perfumeid');
+    });
+
+    document.getElementById('confirmDelete').addEventListener('click', function () {
+      fetch(`/perfume/${perfumeToDeleteId}`, {
+        method: 'DELETE'
+      }).then(response => {
+        if (response.ok) {
+          // Remove the deleted perfume from the table
+          document.querySelector(`tr[data-perfumeid="${perfumeToDeleteId}"]`).remove();
+          // Close the modal
+          const modal = bootstrap.Modal.getInstance(deleteModal);
+          modal.hide();
+        }
+      });
+    });
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
