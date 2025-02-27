@@ -5,7 +5,7 @@ class brandController {
     getAllBrand = async (req, res) => {
         try {
             const { keyword } = req.body
-            const response = await getBrandsService(req, res, keyword)
+            const response = await getBrandsService(req, res)
             if (response) {
                 return res.status(200).json({
                     message: "Get Brands Successfully!",
@@ -13,9 +13,9 @@ class brandController {
                 })
             }
         } catch (error) {
-            return res.status(500).json({
-                message: "Internal Server Error!",
-            })
+            // return res.status(500).json({
+            //     message: "Internal Server Error!",
+            // })
         }
 
     }

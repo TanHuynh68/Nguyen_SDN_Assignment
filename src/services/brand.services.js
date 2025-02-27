@@ -3,15 +3,10 @@ const brandModel = require("../models/brand.model");
 
 class brandService {
 
-    getBrandsService = async (req, res, keyword) => {
+    getBrandsService = async (req, res) => {
         try {
             let response;
-            if (!keyword) {
-                response = await brandModel.find({});
-            } else {
-                const regex = new RegExp(keyword, 'i');
-                response = await brandModel.find({ brandName: { $regex: regex } });
-            }
+            response = await brandModel.find({});
             return response;
         } catch (error) {
             console.error(error);

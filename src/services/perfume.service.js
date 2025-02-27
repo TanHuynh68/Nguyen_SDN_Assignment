@@ -2,22 +2,25 @@ const perfumeModel = require("../models/perfume.model");
 
 class perfumeService {
 
-    getPerfumesService = async (req, res, keyword) => {
+    getPerfumesService = async (req, res) => {
         try {
             let response;
-            if (!keyword) {
-                response = await perfumeModel.find({})
-                // .populate('brand') // Population of brand
-                //     .populate({
-                //         path: 'comments.author', // Population of author in comments
-                //     });
-            } else {
-                const regex = new RegExp(keyword, 'i');
-                response = await perfumeModel.find({ perfumeName: { $regex: regex } }).populate('brand') // Population of brand
-                    .populate({
-                        path: 'comments.author', // Population of author in comments
-                    });
-            }
+            response = await perfumeModel.find({}).populate('brand')
+            // Population of brand
+            // if (!keyword) {
+            //     response = await perfumeModel.find({})
+            //     .populate('brand') // Population of brand
+            //     .populate({
+            //         path: 'comments.author', // Population of author in comments
+            //     });
+            // }
+            // else {
+            //     const regex = new RegExp(keyword, 'i');
+            //     response = await perfumeModel.find({ perfumeName: { $regex: regex } }).populate('brand') // Population of brand
+            //         .populate({
+            //             path: 'comments.author', // Population of author in comments
+            //         });
+            // }
             return response;
         } catch (error) {
             console.error(error);
@@ -103,9 +106,9 @@ class perfumeService {
         }
     }
 
-    deleteOrRestoreService = async (req, res, id, is_delete) => {
+    deleteOrRestoreService = async (req, res, id) => {
         try {
-            const response = await perfumeModel.findByIdAndUpdate(id, { $set: { is_delete: is_delete } }, { new: true });
+            const response = await perfumeModel.deleteOne({_id: id});
             console.log("deleteOrRestoreService: ", response);
             if (response)
                 return response;

@@ -28,15 +28,12 @@ class jwtMiddleWare {
         const token = req.cookies.token;
         if (token) {
             jwt.verify(token, SECRET_KEY, (err, user) => {
-                console.log("err: ", err)
-                console.log("token: ", token)
                 if (err) {
                     // return res.status(403).json({
                     //     message: 'Invalid token.'
                     // });
                     return res.render('error', { message: "Invalid token.", link: "/" });
                 }
-                console.log("user: ", user)
                 req.user = user;
                 next();
             });

@@ -1,9 +1,10 @@
 var express = require('express');
-const watchController = require('../controllers/watchController');
-const validateWatch = require('../middleware/watch.middleware');
 const { API_ROUTE } = require('../const');
-const jwtMiddleware = require('../middleware/jwt.middleware');
+const perfumeController = require('../controllers/perfumeController');
+const jwtMiddleware = require('../middlewares/jwt.middleware');
 var router = express.Router();
 
-router.route(API_ROUTE.CREATE_WATCH).post(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin, watchController.createWatch)
+router.route(API_ROUTE.CREATE_PERFUME).post(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin, perfumeController.createPerfume)
+router.route(API_ROUTE.EDIT_PERFUME).put(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin, perfumeController.editPerfume)
+router.route(API_ROUTE.DELETE_PERFUME).delete(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin, perfumeController.deletePerfume)
 module.exports = router;

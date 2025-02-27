@@ -5,7 +5,8 @@ const { getPerfumesService } = require("../services/perfume.service");
 class pageController {
     getAdminPage = async (req, res) => {
         const getPerfumeFromAdmin = await getPerfumesService(req, res);
-        return res.render("admin", {perfumes: getPerfumeFromAdmin})
+        const brands = await brandServices.getBrandsService(req, res);
+        return res.render("admin", {perfumes: getPerfumeFromAdmin, brands: brands})
     }
     getBrandPage = async (req, res) => {
         const getBrandsService = await brandServices.getBrandsService(req, res);
