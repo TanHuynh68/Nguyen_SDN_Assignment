@@ -12,4 +12,6 @@ router.use('/', pageRoute);
 router.use('/auth', authRoute);
 router.use('/brand', brandRoute);
 router.use('/perfume', perfumeRoute);
+
+  
 module.exports = router;

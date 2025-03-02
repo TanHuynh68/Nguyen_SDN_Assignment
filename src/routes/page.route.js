@@ -9,6 +9,8 @@ var router = express.Router();
 router.route(PATH.ADMIN_PAGE).get(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin,pageController.getAdminPage)
 router.route(PATH.REGISTER).get(jwtMiddleware.isLogin,pageController.getRegisterPage)
 router.route(PATH.HOME_PAGE).get(pageController.getHomePage)
+router.route(PATH.PERFUME_DETAIL_PAGE).get(pageController.getPerfumeDetailPage)
 router.route(PATH.LOGIN_PAGE).get(jwtMiddleware.isLogin,pageController.getLoginPage)
 router.route(PATH.ADMIN_BRAND_PAGE).get(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin,pageController.getBrandPage)
+router.route(PATH.ADMIN_MEMBER_PAGE).get(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin,pageController.getAdminManageuserPage)
 module.exports = router;

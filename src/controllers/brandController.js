@@ -1,4 +1,5 @@
 
+const perfumeModel = require("../models/perfume.model");
 const { deleteOrResotreService, getBrandsService, getBrandByIdService, getBrandService, createBrandService, editBrandService } = require("../services/brand.services");
 
 class brandController {
@@ -117,7 +118,12 @@ class brandController {
         try {
             const { id } = req.params
             console.log("id: ", id)
-            const response = await deleteOrResotreService(req, res, id, true);
+            const isBrandUsed = await perfumeModel.find({ brand: id });
+            console.log("isBrandUsed: ", isBrandUsed)
+            if (isBrandUsed.length > 0) {
+                return res.render('error', { message: "Brand is in use so cannot be deleted", link: "/brand" });
+            }
+            const response = await deleteOrResotreService(req, res, id);
             console.log("deleteBrand: ", response)
             if (response) {
                 // res.status(200).json({

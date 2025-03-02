@@ -56,20 +56,19 @@ class perfumeController {
         try {
             const response = await getPerfumeByIdService(req, res, id);
             if (response) {
-                return res.status(200).json({
-                    message: "Get Perfume Successfully!",
-                    data: response
-                });
+                return res.redirect('/per')
             } else if (response === undefined) {
-                return res.status(404).json({
-                    message: "Perfume not found or id does not exist!",
-                });
+                // return res.status(404).json({
+                //     message: "Perfume not found or id does not exist!",
+                // });
+                 return res.render('error', { message: "Perfume Exists", link: "/" });
             }
         } catch (error) {
-            console.log("getPerfume-error: ", error);
-            return res.status(500).json({
-                message: "Internal Server Error",
-            });
+            // console.log("getPerfume-error: ", error);
+            // return res.status(500).json({
+            //     message: "Internal Server Error",
+            // });
+            return res.render('error', { message: "Internal Server Error", link: "/" });
         }
     }
 

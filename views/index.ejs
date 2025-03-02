@@ -1,52 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfume List</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                  </li>
-                </ul>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
+<body class="bg-gray-100">
+
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex-shrink-0">
+            <a href="#" class="text-xl font-bold">Perfume Store</a>
+          </div>
+        </div>
+
+        <% if (!token || token==="null" ) { %>
+          <div id="authButtons" class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <a href="/login" class="btn btn-primary mr-2">Login</a>
+            <a href="/signup" class="btn btn-secondary">Sign Up</a>
+          </div>
+          <% } %>
+            <!-- User Icon and Logout -->
+            <% if (token && token!="null" ) { %>
+              <div class="relative" id="userMenu">
+                <button id="userIcon" class="flex items-center focus:outline-none">
+                  <img width="30"
+                    src="data:image/png;base64,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"
+                    alt="User Icon">
+                </button>
+                <div id="logoutMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                  <div class="py-1">
+                    <button id="logoutButton"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+
+      </div>
+    </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-2xl font-semibold mb-4">Perfume List</h1>
+
+    <% if (perfumes && perfumes.length> 0) { %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% perfumes.forEach(perfume=> { %>
+          <a href="/perfume/<%= perfume._id %>">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+              <img class="w-full h-48 object-cover" src="<%= perfume.uri %>" alt="<%= perfume.perfumeName %>">
+              <div class="p-4">
+                <h2 class="text-lg font-bold">
+                  <%= perfume.perfumeName %>
+                </h2>
+                <p class="text-gray-600">Price: $<%= perfume.price %>
+                </p>
+                <p class="text-gray-600">Concentration: <%= perfume.concentration %>
+                </p>
+                <p class="text-gray-600">Description: <%= perfume.description %>
+                </p>
+                <p class="text-gray-600">Volume: <%= perfume.volume %>ml</p>
+                <p class="text-gray-600">Brand: <%= perfume.brand ? perfume.brand.brandName : 'Unknown Brand' %>
+                </p>
               </div>
             </div>
-          </nav>
-          <h1>Home</h1>
-          
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+          </a>
+          <% }) %>
+      </div>
+      <% } else { %>
+        <p class="text-gray-600">No perfumes available at the moment.</p>
+        <% } %>
+  </div>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Toggle logout menu visibility
+      document.getElementById('userIcon').addEventListener('click', function () {
+        const logoutMenu = document.getElementById('logoutMenu');
+        logoutMenu.classList.toggle('hidden');
+      });
+
+      // Handle logout button click
+      document.getElementById("logoutButton").addEventListener("click", async function () {
+        try {
+          const response = await fetch('/auth/logout', {
+            method: 'POST',
+            credentials: 'include' // Cần thiết để gửi cookie
+          });
+
+          if (response.ok) {
+            window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+          } else {
+            console.error("Logout failed");
+          }
+        } catch (error) {
+          console.error("Error logging out", error);
+        }
+      });
+
+      // Đóng menu khi nhấn ra ngoài
+      window.addEventListener('click', function (event) {
+        const logoutMenu = document.getElementById('logoutMenu');
+        if (!event.target.closest('#userIcon') && !event.target.closest('#logoutMenu')) {
+          logoutMenu.classList.add('hidden');
+        }
+      });
+
+      // Hàm lấy giá trị của cookie theo tên
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
+
+
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

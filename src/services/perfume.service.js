@@ -76,11 +76,10 @@ class perfumeService {
 
     getPerfumeByIdService = async (req, res, id) => {
         try {
-            const response = await perfumeModel.findById(id)
+            console.log("id: ", id)
+            const response = await perfumeModel.findOne({ _id: id })
                 .populate('brand') // Populating the brand field
-                .populate({
-                    path: 'comments.author', // Population of author in comments
-                });
+                // .populate("comments.author") // Đảm bảo đúng đường dẫn
             return response;
         } catch (error) {
             console.error(error);
@@ -108,7 +107,7 @@ class perfumeService {
 
     deleteOrRestoreService = async (req, res, id) => {
         try {
-            const response = await perfumeModel.deleteOne({_id: id});
+            const response = await perfumeModel.deleteOne({ _id: id });
             console.log("deleteOrRestoreService: ", response);
             if (response)
                 return response;

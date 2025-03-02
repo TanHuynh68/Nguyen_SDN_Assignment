@@ -67,7 +67,19 @@ class authController {
                         SECRET_KEY,
                         { expiresIn: parseInt(EXPIRES_IN) }
                     );
+                    console.log("member: ", member)
                     res.cookie('token', token, { httpOnly: true, secure: true });
+                    const userData = {
+                        email: member.email,
+                        name: member.name,
+                        YOB: member.YOB,
+                        gender: member.gender,
+                        isAdmin: member.isAdmin, // Fixed typo from isAdminm to isAdmin
+                        _id: member._id
+                    };
+                    const userDataString = JSON.stringify(userData);
+                    res.cookie('userData', userDataString);
+
                     // return res.status(200).json({
                     //     message: "Login Successfully!",
                     //     token: token,
