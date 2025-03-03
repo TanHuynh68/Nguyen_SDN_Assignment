@@ -36,6 +36,7 @@ class memberController {
             console.log("userDataJson", JSON.parse(req.cookies.userData));
             const user = JSON.parse(req.cookies.userData);
             const { gender, name, YOB } = req.body;
+            console.log("gender: ", gender)
             const response = await editMemberService(req, res, user._id, gender, name, YOB);
             if (response) {
                 // res.status(200).json({
