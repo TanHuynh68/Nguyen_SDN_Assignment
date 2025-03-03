@@ -1,6 +1,6 @@
 const PATH = {
     "LOGIN": "/login",
-    "REGISTER": "/register",
+    "REGISTER": "/signup",
     "LOGOUT": "/logout",
     //Page
     "HOME_PAGE": "/",
