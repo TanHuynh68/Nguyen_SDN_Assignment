@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Update Profile</h2>
+        
+        <form id="profileForm" action="/member/member-profile" method="POST">
+            <!-- Name Input -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                <input type="text" name="name" id="name" 
+                    class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+                    value="<%= user.name %>" required>
+            </div>
+
+            <!-- Gender Radio Buttons -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Gender</label>
+                <div class="flex space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="gender" value="<%= user.gender %>" class="mr-2" 
+                        <%= user.gender === true ? 'checked' : '' %> required> Male
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="gender" value="female" class="mr-2" 
+                        <%= user.gender === false ? 'checked' : '' %> required> Female
+                    </label>
+                </div>
+            </div>
+
+            <!-- Year of Birth Input -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Year of Birth</label>
+                <input type="number" name="yob" id="yob" min="1900" max="2005" 
+                    class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+                    value="<%= user.YOB %>" required>
+                <p id="yobError" class="text-red-500 text-sm mt-2 hidden">Year of birth must be between 1900 and 2005</p>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" 
+                class="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition">
+                Update Profile
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="/" class="text-indigo-500 hover:underline">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

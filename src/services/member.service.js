@@ -23,9 +23,9 @@ class memberService {
         
     }
 
-    getMemberDetailService = async (req, res, id) => {
+    getMemberDetailService = async (req, res, _id) => {
         try {
-            const response = await memberModel.findOne({ _id: id });
+            const response = await memberModel.findOne({ _id });
             if (response)
                 return response;
         } catch (error) {
@@ -54,10 +54,10 @@ class memberService {
         }
     }
 
-    editMemberService = async (req, res, id, phoneNumber, name, YOB) => {
+    editMemberService = async (req, res, id, gender, name, YOB) => {
         try {
             const response = await memberModel.findByIdAndUpdate(
-                id, { $set: { phoneNumber: phoneNumber, name: name, YOB: YOB } }, { new: true })
+                id, { $set: { gender: gender, name: name, YOB: YOB } }, { new: true })
             if (response)
                 return response;
         } catch (error) {

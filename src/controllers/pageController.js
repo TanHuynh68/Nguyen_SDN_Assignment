@@ -43,6 +43,17 @@ class pageController {
     getChangePasswordPage = async (req, res) => {
         return res.render("change_password")
     }
+    getChangeProfile= async (req, res) => {
+        if (!req.cookies || !req.cookies.userData) {
+            return res.render('error', { message: "No user data found in cookies!", link: "/change-password" });
+        }
+        console.log("userDataJson", JSON.parse(req.cookies.userData));
+        const userDataJson = JSON.parse(req.cookies.userData);
+        console.log("userDataJson._id: ", userDataJson._id)
+        const user = await memberService.getMemberDetailService(req, res, userDataJson._id)
+        console.log("user: ", user);
+        return res.render("change_profile", {user})
+    }
 }
 
 module.exports = new pageController();

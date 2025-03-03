@@ -6,7 +6,7 @@ const API_ROUTE = {
     "DELETE_MEMBER": "/delete/:id",
     "RESTORE_MEMBER": "/restore/:id",
     "EDIT_MEMBER": "/edit/:id",
-    "COMMENT_WATCH": "/comment/:id",
+"CHANGE_PROFILE": "/member-profile",
     //perfume
     "GET_ALL_PERFUME": "/get-all",
     "GET_ALL_PERFUME_BY_CLIENT": "/client/get-all",
