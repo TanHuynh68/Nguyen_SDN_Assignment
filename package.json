@@ -26,6 +26,7 @@
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.1",
     "morgan": "~1.9.1",
+    "nguyen-sdn-assignment": "file:",
     "nodemon": "^3.1.7",
     "redis": "^4.7.0",
     "sdn-assignment": "file:",

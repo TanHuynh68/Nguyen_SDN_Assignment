@@ -7,5 +7,5 @@ var router = express.Router();
 router.route(PATH.REGISTER).post(authController.register)
 router.route(PATH.LOGIN).post(authController.login)
 router.route(PATH.LOGOUT).post(authController.logout)
-
+router.route(PATH.CHANGE_PASSWORD).post(jwtMiddleware.authenticateToken, authController.changePassword)
 module.exports = router;

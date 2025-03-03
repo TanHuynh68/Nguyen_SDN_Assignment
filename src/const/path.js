@@ -4,6 +4,7 @@ const PATH = {
     "LOGOUT": "/logout",
     //Page
     "HOME_PAGE": "/",
+    "CHANGE_PASSWORD": "/change-password",
     "LOGIN_PAGE": "/login",
     "PERFUME_DETAIL_PAGE": "/perfume/:id",
     //brand

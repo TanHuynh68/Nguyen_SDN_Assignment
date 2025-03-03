@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const redis = require('redis');
 // const showValiDateResult = require("../middlewares/auth.middleware");
-const { getMemberService } = require("../services/auth.service");
+const { getMemberService, changePasswordService, getMemberServiceById } = require("../services/auth.service");
 // const { generateOTP, sendOTP } = require("../services/sms.service");
 // const client = redis.createClient();
 require('dotenv').config();
@@ -27,7 +27,7 @@ class authController {
                 //     message: "memberName is Exsisted",
                 //     data: isExsistMember
                 // });
-               return res.render('error', { message: "Name is Existed", link: "/register" });
+                return res.render('error', { message: "Name is Existed", link: "/register" });
             }
             const hashedPassword = await bcrypt.hash(password, 10);
             const response = await members.create({ name: name, password: hashedPassword, email: email, YOB: yob, gender: gender, isAdmin: false });
@@ -47,10 +47,50 @@ class authController {
         } catch (error) {
             console.error(error);
             // res.status(500).send("An error occurred");
-            return   res.render('error', { message: "An error occurred", link: "/register" });
+            return res.render('error', { message: "An error occurred", link: "/register" });
         }
     }
 
+    changePassword = async (req, res) => {
+        try {
+
+            // Kiểm tra nếu `req.cookies` tồn tại
+            if (!req.cookies || !req.cookies.userData) {
+                return res.render('error', { message: "No user data found in cookies!", link: "/change-password" });
+            }
+            console.log("userDataJson", JSON.parse(req.cookies.userData));
+            const user = JSON.parse(req.cookies.userData);
+
+            const { newPassword, currentPassword } = req.body;
+            console.log("password: ", newPassword);
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            if (!user._id) {
+                return res.render('error', { message: "User ID not found!", link: "/change-password" });
+            }
+            const _id = user._id
+            console.log("_id: ", _id)
+            const getUser = await getMemberServiceById(req, res, _id)
+            console.log("getUser: ", getUser)
+            const isMatch = await bcrypt.compare(currentPassword, getUser.password);
+            console.log("isMatch: ", isMatch)
+            if (isMatch) {
+                console.log("_id: ", user._id);
+                const response = await changePasswordService(req, res, user._id, hashedPassword);
+                if (response) {
+                    console.log("response: ", response);
+                    this.logout(req, res)
+                    return res.redirect('/login');
+                } else {
+                    return res.render('error', { message: "User not found or ID does not exist!", link: "/change-password" });
+                }
+            } else {
+                return res.render('error', { message: "Invalid Current Password", link: "/change-password" });
+            }
+        } catch (error) {
+            console.error("Error in changePassword:", error);
+            return res.render('error', { message: error.message || "An error occurred", link: "/change-password" });
+        }
+    };
 
 
     login = async (req, res) => {
@@ -68,7 +108,7 @@ class authController {
                         { expiresIn: parseInt(EXPIRES_IN) }
                     );
                     console.log("member: ", member)
-                    res.cookie('token', token, { httpOnly: true, secure: true });
+                    res.cookie('token', token);
                     const userData = {
                         email: member.email,
                         name: member.name,
@@ -107,6 +147,9 @@ class authController {
     }
 
     logout = (req, res) => {
+        if (!req.cookies) {
+            return res.render('error', { message: "No user data found in cookies!", link: "/change-password" });
+        }
         const cookies = req.cookies;
         console.log("handle logout")
         for (const cookie in cookies) {

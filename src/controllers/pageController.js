@@ -40,6 +40,9 @@ class pageController {
         console.log("members: ", members)
         return res.render("admin_manage_user", {members: members})
     }
+    getChangePasswordPage = async (req, res) => {
+        return res.render("change_password")
+    }
 }
 
 module.exports = new pageController();

@@ -13,4 +13,5 @@ router.route(PATH.PERFUME_DETAIL_PAGE).get(pageController.getPerfumeDetailPage)
 router.route(PATH.LOGIN_PAGE).get(jwtMiddleware.isLogin,pageController.getLoginPage)
 router.route(PATH.ADMIN_BRAND_PAGE).get(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin,pageController.getBrandPage)
 router.route(PATH.ADMIN_MEMBER_PAGE).get(jwtMiddleware.authenticateToken, jwtMiddleware.isAdmin,pageController.getAdminManageuserPage)
+router.route(PATH.CHANGE_PASSWORD).get(jwtMiddleware.authenticateToken, pageController.getChangePasswordPage)
 module.exports = router;
