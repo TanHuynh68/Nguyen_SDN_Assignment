@@ -73,7 +73,10 @@
                 </h2>
                 <p class="text-gray-600">Price: $<%= perfume.price %>
                 </p>
-                <p class="text-gray-600">Concentration: <%= perfume.concentration %>
+                <p class="<%= perfume.concentration === 'Extrait' ? 'text-red-500 font-bold' : 'text-gray-600' %>">
+                  Concentration: <%= perfume.concentration %>
+                </p>
+                
                 </p>
                 <p class="text-gray-600">Description: <%= perfume.description %>
                 </p>

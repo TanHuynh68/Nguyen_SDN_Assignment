@@ -76,15 +76,24 @@ class perfumeService {
 
     getPerfumeByIdService = async (req, res, id) => {
         try {
-            console.log("id: ", id)
+            console.log("id: ", id);
             const response = await perfumeModel.findOne({ _id: id })
-                .populate('brand') // Populating the brand field
-                // .populate("comments.author") // Đảm bảo đúng đường dẫn
+                .populate('brand') // Populate brand
+                .populate({
+                    path: 'comments',
+                    populate: {
+                        path: 'author'
+                    }
+                });
+    
+            console.log(JSON.stringify(response, null, 2)); // In toàn bộ dữ liệu
             return response;
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+    
+
 
     editPerfumeService = async (req, res, id, perfumeName, uri, price, concentration, description, ingredients, volume, targetAudience, brand) => {
         try {

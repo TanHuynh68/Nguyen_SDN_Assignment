@@ -33,29 +33,54 @@
                 <% if (perfume.comments && perfume.comments.length > 0) { %>
                     <% perfume.comments.forEach(comment => { %>
                         <li class="p-3 bg-gray-200 rounded-lg">
-                            <strong class="text-indigo-600"><%= comment.user %>:</strong> <%= comment.text %>
+                            <strong class="text-indigo-600"><%= comment.user %></strong> 
+                            <span class="text-yellow-500">
+                                <% for (let i = 0; i < comment.rating; i++) { %>
+                                    ⭐
+                                <% } %>
+                            </span>
+                            <p><%= comment.author.name %></p>
+                            <p><%= comment.content %></p>
                         </li>
                     <% }); %>
                 <% } else { %>
                     <p class="text-gray-500">No comments yet.</p>
                 <% } %>
             </ul>
+            
 
             <h2 class="text-2xl font-semibold mt-6">Add a Comment</h2>
-            <form action="/add-comment" method="POST" class="mt-4 space-y-4">
-                <input type="hidden" name="perfumeId" value="<%= perfume._id %>">
+            <% if (hasComment.length === 0) { %>
+                <form action="/member/comment/<%= perfume._id %>" method="POST" class="mt-4 space-y-4">
+                    <input type="hidden" name="perfumeId" value="<%= perfume._id %>">
+            
+                    <!-- Trường nhập tên tác giả (author) -->
+                    <input type="text" name="author" value="<%= user._id %>" hidden required 
+                           class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none">
+            
+                    <!-- Trường nhập nội dung bình luận (content) -->
+                    <textarea name="content" placeholder="Your comment" required 
+                              class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"></textarea>
+            
+                    <!-- Trường đánh giá (rating) -->
+                    <select name="rating" required 
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none">
+                        <option value="" disabled selected>Choose rating</option>
+                        <option value="1">⭐ 1 - Poor</option>
+                        <option value="2">⭐⭐ 2 - Fair</option>
+                        <option value="3">⭐⭐⭐ 3 - Good</option>
+                    </select>
+            
+                    <!-- Nút gửi bình luận -->
+                    <button type="submit" 
+                            class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all">
+                        Add Comment
+                    </button>
+                </form>
+            <% } else { %>
+                <p class="text-green-600 font-semibold mt-4">You have already commented on this perfume.</p>
+            <% } %>
                 
-                <input type="text" name="user" placeholder="Your name" required 
-                       class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none">
-                
-                <textarea name="text" placeholder="Your comment" required 
-                          class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"></textarea>
-                
-                <button type="submit" 
-                        class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all">
-                    Add Comment
-                </button>
-            </form>
         <% } else { %>
             <h2 class="text-2xl font-bold text-center text-red-600">Perfume not found</h2>
             <p class="text-center text-gray-600">The perfume you are looking for does not exist.</p>

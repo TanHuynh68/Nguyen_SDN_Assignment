@@ -11,7 +11,7 @@ const perfumeSchema = new Schema(
     ingredients: { type: String, required: true },
     volume: { type: Number, required: true },
     targetAudience: { type: String, required: true }, // male, female, unisex
-    comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
     brand: { type: Schema.Types.ObjectId, ref: 'brand', required: true },
   },
   { timestamps: true }

@@ -12,4 +12,5 @@ var router = express.Router();
 // router.route(API_ROUTE.EDIT_MEMBER).put(jwtMiddleware.authenticateToken,memberMiddleware.editMember, memberController.editMember)
 // router.route(API_ROUTE.COMMENT_WATCH).post(jwtMiddleware.authenticateToken,jwtMiddleware.isMember,memberMiddleware.commentWatch, memberController.commentWatch)
 router.route(API_ROUTE.CHANGE_PROFILE).post(jwtMiddleware.authenticateToken, memberController.editMember)
+router.route(API_ROUTE.COMMENT_PERFUME).post(jwtMiddleware.authenticateToken,jwtMiddleware.isMember,memberController.commentPerfume)
 module.exports = router;

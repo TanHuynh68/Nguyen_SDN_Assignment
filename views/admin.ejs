@@ -38,12 +38,12 @@
               <%= perfume.price %>
             </td>
             <td>
-              <button class="btn btn-warning" 
-                  onclick="editPerfume('<%= perfume._id %>', '<%= perfume.perfumeName %>', '<%= perfume.uri %>', '<%= perfume.price %>', '<%= perfume.concentration %>', '<%= perfume.description %>', '<%= perfume.ingredients %>', '<%= perfume.volume %>', '<%= perfume.targetAudience %>', '<%= perfume.brand ? perfume.brand._id : ',' %>')">
-                  Edit
+              <button class="btn btn-warning"
+                onclick="editPerfume('<%= perfume._id %>', '<%= perfume.perfumeName %>', '<%= perfume.uri %>', '<%= perfume.price %>', '<%= perfume.concentration %>', '<%= perfume.description %>', '<%= perfume.ingredients %>', '<%= perfume.volume %>', '<%= perfume.targetAudience %>', '<%= perfume.brand ? perfume.brand._id : ',' %>')">
+                Edit
               </button>
               <button class="btn btn-danger" onclick="deletePerfume('<%= perfume._id %>')">Delete</button>
-          </td>
+            </td>
           </tr>
           <% }) %>
       </tbody>

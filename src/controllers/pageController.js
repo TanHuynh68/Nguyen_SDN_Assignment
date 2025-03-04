@@ -30,10 +30,21 @@ class pageController {
         return res.render("error", {error: req.error})
     }
     getPerfumeDetailPage = async (req, res) => {
+        if (!req.cookies || !req.cookies.userData) {
+            return res.render('error', { message: "No user data found in cookies!", link: "/change-password" });
+        }
+        console.log("userDataJson", JSON.parse(req.cookies.userData));
+        const userDataJson = JSON.parse(req.cookies.userData);
+        console.log("userDataJson._id: ", userDataJson._id)
+        const user = await memberService.getMemberDetailService(req, res, userDataJson._id)
         const id = req.params.id;
+        console.log("user._id: ", user._id)
         const perfume = await perfumeService.getPerfumeByIdService(req, res, id)
+        let hasComment = perfume.comments.filter(item => item.author.email === user.email   );
+
+        console.log("hasComment: ", hasComment)
         console.log("perfume: ", perfume)
-        return res.render("perfume_detail", {perfume: perfume})
+        return res.render("perfume_detail", {perfume: perfume, user: user, hasComment: hasComment})
     }
     getAdminManageuserPage = async (req, res) => {
         const members = await memberService.getMembersService(req, res)
